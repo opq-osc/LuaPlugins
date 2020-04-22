@@ -19,8 +19,13 @@ function ReceiveEvents(CurrentQQ, data, extData)
     return 1
 end
 function showMenuG(CurrentQQ,data)
-menu = "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、美图（Loli）。\n2.天气查询：天气+城市\n3.复读机\n4.秀头像：闪我、闪她+@群员\n5.QQ音乐：点歌+歌名"
-		luaMsg =
+menu =  "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、美图（Loli）。\n"..
+				"2.天气查询：天气+城市\n"..
+				"3.复读机\n"..
+				"4.秀头像：闪我、闪她+@群员\n"..
+				"5.QQ音乐：点歌+歌名\n"..
+				"6.搜图+图片"	
+				luaMsg =
 			    Api.Api_SendMsg(--调用发消息的接口
 			    CurrentQQ,
 			    {
@@ -34,7 +39,12 @@ menu = "1.看图命令有：\n漫画、插画、随机、首页、周排行、co
 			)
 	end
 function showMenuF(CurrentQQ,data)
-menu = "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、美图（Loli）。\n2.天气查询：天气+城市\n3.复读机\n4.秀头像：闪我、闪她+@群员\n5.QQ音乐：点歌+歌名\n6.卡片自定义"
+menu =  "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、美图（Loli）。\n"..
+				"2.天气查询：天气+城市\n"..
+				"3.复读机\n"..
+				"4.秀头像：闪我、闪她+@群员\n"..
+				"5.QQ音乐：点歌+歌名\n"..
+				"6.搜图+图片"
 			luaMsg =
 			    Api.Api_SendMsg(--调用发消息的接口
 			    CurrentQQ,

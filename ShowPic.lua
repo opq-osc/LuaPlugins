@@ -31,6 +31,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
         )
     end
     if (data.MsgType == "AtMsg") and (string.find(data.Content, "闪她")) then
+		log.notice("data.Content>%s",data.Content)
         jData = json.decode(data.Content)
         Api.Api_SendMsg( --通过Url发送图片
             CurrentQQ,
@@ -45,7 +46,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
                 atUser = 0,
                 voiceUrl = "",
                 voiceBase64Buf = "",
-                picUrl = "http://q1.qlogo.cn/g?b=qq&nk=" .. jData.UserID .. "&s=640",
+                picUrl = "http://q1.qlogo.cn/g?b=qq&nk=" .. jData.UserID[1] .. "&s=640",
                 picBase64Buf = "",
                 fileMd5 = ""
             }

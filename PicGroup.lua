@@ -363,8 +363,6 @@ function Cosplay(CurrentQQ, data)
 			log.notice("the randomPNum is %s", randomPNum)
 			local img_url = strJson["data"]["items"][randomINum]["item"]["pictures"][randomPNum]["img_src"]
 			log.notice("the img_url is %s", img_url)
-	
-			loading(CurrentQQ,data)
 	    luaPic =
 	        Api.Api_SendMsg(--调用发消息的接口
 	        CurrentQQ,
