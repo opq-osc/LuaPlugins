@@ -62,7 +62,6 @@ function ReceiveFriendMsg(CurrentQQ, data)
     return 1
 end
 function ReceiveGroupMsg(CurrentQQ, data)
-if CurrentQQ ~= 664424604 then
 	if string.find(data.Content, "天气") == 1 then --判断一下所接收的消息里是否含有复读机字样 有则进行处理
 	        keyWord = data.Content:gsub("天气", "") --提取关键词 保存到keyWord里
 					log.notice("keyWord-->%s",keyWord)
@@ -115,7 +114,6 @@ if CurrentQQ ~= 664424604 then
 				)
 			log.notice("From Lua SendMsg Ret-->%d", luaRes.Ret)
 		end
-end
 	    return 1
 	end
 function ReceiveEvents(CurrentQQ, data, extData)
