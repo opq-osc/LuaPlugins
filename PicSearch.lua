@@ -6,10 +6,13 @@ local http = require("http")
 function ReceiveFriendMsg(CurrentQQ, data)
 		if string.find(data.MsgType, "PicMsg") then
 			str = json.decode(data.Content)
-			if string.find(str.Content, "搜图") then
-				img_url = str.GroupPic[1].Url
-        log.notice("MsgType--->   %s", data.MsgType)
-				log.notice("img_url--->   %s", img_url)
+			log.notice("MsgType--->   %s", data.MsgType)
+			log.notice("img_url--->   %s", str.Url)
+			-- if string.find(str.Content, "搜图") then
+				img_url = str.Url
+    --     log.notice("MsgType--->   %s", data.MsgType)
+				-- log.notice("img_url--->   %s", img_url)
+				loadingF(CurrentQQ,data)
         response, error_message =
                http.request(
                "GET",
@@ -23,9 +26,9 @@ function ReceiveFriendMsg(CurrentQQ, data)
                }
            )
 				local html = response.body
-				log.notice("html-->%s",html)
+				-- log.notice("html-->%s",html)
 				local re = json.decode(html)
-				log.notice("re---> %s", re)
+				-- log.notice("re---> %s", re)
 				local similarity = re.results[1].header.similarity
 				local thumbnail_url = re.results[1].header.thumbnail
 				local title = re.results[1].data.title
@@ -53,14 +56,14 @@ function ReceiveFriendMsg(CurrentQQ, data)
             }
         )
 			end
-		end
+		-- end
     return 1
 end
 function ReceiveGroupMsg(CurrentQQ, data)
   		if string.find(data.MsgType, "PicMsg") then 
 				str = json.decode(data.Content)
 				if string.find(str.Content, "搜图") then
-					loading(CurrentQQ,data)
+					loadingG(CurrentQQ,data)
   				img_url = str.GroupPic[1].Url
           log.notice("MsgType--->   %s", data.MsgType)
   				log.notice("img_url--->   %s", img_url)
@@ -77,9 +80,9 @@ function ReceiveGroupMsg(CurrentQQ, data)
                  }
              )
   				local html = response.body
-  				log.notice("html-->%s",html)
+  				-- log.notice("html-->%s",html)
   				local re = json.decode(html)
-  				log.notice("re---> %s", re)
+  				-- log.notice("re---> %s", re)
   				local similarity = re.results[1].header.similarity
   				local thumbnail_url = re.results[1].header.thumbnail
   				local title = re.results[1].data.title
@@ -114,17 +117,31 @@ function ReceiveGroupMsg(CurrentQQ, data)
 function ReceiveEvents(CurrentQQ, data, extData)
     return 1
 end
-
-function loading(CurrentQQ,data)
-		Api.Api_SendMsg(--调用发消息的接口
+function loadingG(CurrentQQ,data)
+		luaMsg =
+		    Api.Api_SendMsg(--调用发消息的接口
 		    CurrentQQ,
 		    {
 		        toUser = data.FromGroupId, --回复当前消息的来源群ID
 		        sendToType = 2, --2发送给群1发送给好友3私聊
 		        sendMsgType = "TextMsg", --进行文本复读回复
 		        groupid = 0, --不是私聊自然就为0咯
-		        content = "正在查询ing[表情178][表情67]", --回复内容
+		        content = "正在发送ing[表情178][表情67]", --回复内容
 		        atUser = 0 --是否 填上data.FromUserId就可以复读给他并@了
 		    }
 		)
-end
+	end
+function loadingF(CurrentQQ,data)
+		luaMsg =
+		    Api.Api_SendMsg(--调用发消息的接口
+		    CurrentQQ,
+		    {
+		        toUser = data.FromUin, --回复当前消息的来源群ID
+		        sendToType = 1, --2发送给群1发送给好友3私聊
+		        sendMsgType = "TextMsg", --进行文本复读回复
+		        groupid = 0, --不是私聊自然就为0咯
+		        content = "正在发送ing[表情178][表情67]", --回复内容
+		        atUser = 0 --是否 填上data.FromUserId就可以复读给他并@了
+		    }
+		)
+	end

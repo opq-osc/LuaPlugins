@@ -8,7 +8,7 @@ function ReceiveFriendMsg(CurrentQQ, data)
     log.info("%s","\nFriendParseMsg")
     str =
         string.format(
-        "\nFrom Msg \nFromUin  %d  \nToUin %d\nMsgType %s Content %s MsgSeq %s\n",
+        "\nFrom Msg \nFromUin  %d  \nToUin %d\nMsgType %s \nContent %s MsgSeq %s\n",
         data.FromUin,
         data.ToUin,
         data.MsgType,

@@ -378,7 +378,7 @@ function Cosplay(CurrentQQ, data)
 								fileMd5 = ""
 						}
 	    )
-	    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
+	    -- log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
 	end
 	
 function Sifu(CurrentQQ, data) 
