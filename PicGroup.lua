@@ -50,7 +50,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 	if string.find(data.Content, "少前") == 1 then
 		girlFront(CurrentQQ,data)
 		end
-	if string.find(data.Content, "色图")  then
+	if string.find(data.Content, "来点色图") == 1  then
 		Pixiv(CurrentQQ,data)
 		end
     return 1

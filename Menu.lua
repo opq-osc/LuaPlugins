@@ -5,7 +5,7 @@ local http = require("http")
 
 function ReceiveFriendMsg(CurrentQQ, data)
 if string.find(data.Content, "菜单") == 1 then
-		menu =  "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、美图（Loli）。\n"..
+		menu =  "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、色图（Loli）。\n"..
 						"2.天气查询：天气+城市\n"..
 						"3.复读机\n"..
 						"4.秀头像：闪我、闪她+@群员\n"..
@@ -28,7 +28,7 @@ if string.find(data.Content, "菜单") == 1 then
 end
 function ReceiveGroupMsg(CurrentQQ, data)
 if string.find(data.Content, "菜单") == 1 then
-	menu =  "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、美图（Loli）。\n"..
+	menu =  "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、色图（Loli）。\n"..
 					"2.天气查询：天气+城市\n"..
 					"3.复读机\n"..
 					"4.秀头像：闪我、闪她+@群员\n"..

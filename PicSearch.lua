@@ -91,7 +91,7 @@ function loadingF(CurrentQQ,data)
 		        sendToType = 1, --2发送给群1发送给好友3私聊
 		        sendMsgType = "TextMsg", --进行文本复读回复
 		        groupid = 0, --不是私聊自然就为0咯
-		        content = "正在发送ing[表情178][表情67]", --回复内容
+		        content = "正在查询ing[表情178][表情67]", --回复内容
 		        atUser = 0 --是否 填上data.FromUserId就可以复读给他并@了
 		    }
 		)
