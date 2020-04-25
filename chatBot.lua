@@ -26,6 +26,7 @@ if string.find(data.Content, "*") == 1 then
 	local content = msg.content:gsub("{br}","\n")
 	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
 	local randomNum = math.random(1,120)
+	-- 图片路径
 	local path = "/root/img/mm/"..randomNum..".jpg"
 	res = readImg(path)
 	base64 = PkgCodec.EncodeBase64(res)
@@ -69,6 +70,7 @@ if string.find(data.Content, "*") == 1 then
 	local content = msg.content:gsub("{br}","\n")
 	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
 	local randomNum = math.random(1,120)
+	-- 图片路径
 	local path = "/root/img/mm/"..randomNum..".jpg"
 	res = readImg(path)
 	base64 = PkgCodec.EncodeBase64(res)
