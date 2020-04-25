@@ -24,14 +24,22 @@ if string.find(data.Content, "*") == 1 then
 	local html = response.body
 	local msg = json.decode(html)
 	local content = msg.content:gsub("{br}","\n")
+	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
+	local randomNum = math.random(1,120)
+	local path = "/root/img/mm/"..randomNum..".jpg"
+	res = readImg(path)
+	base64 = PkgCodec.EncodeBase64(res)
 	 Api.Api_SendMsg(
 		CurrentQQ,
 		{
 				toUser = data.FromUin,
 				sendToType = 1,
-				sendMsgType = "TextMsg",
+				sendMsgType = "PictMsg",
 				groupid = 0,
-				content = content,
+				content = "\n"..content,
+				picUrl = "",
+				picBase64Buf = base64,
+				fileMd5 = "",
 				atUser = 0
 		}
 	)
