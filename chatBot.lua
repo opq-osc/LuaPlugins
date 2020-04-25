@@ -57,17 +57,24 @@ if string.find(data.Content, "*") == 1 then
 	       }
 	   )
 	local html = response.body
-	log.notice("html--->%s", html)
 	local msg = json.decode(html)
 	local content = msg.content:gsub("{br}","\n")
+	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
+	local randomNum = math.random(1,120)
+	local path = "/root/img/mm/"..randomNum..".jpg"
+	res = readImg(path)
+	base64 = PkgCodec.EncodeBase64(res)
 	 Api.Api_SendMsg(
 		CurrentQQ,
 		{
 				toUser = data.FromGroupId,
 				sendToType = 2,
-				sendMsgType = "TextMsg",
+				sendMsgType = "PicMsg",
 				groupid = 0,
-				content = content,
+				content = "\n"..content,
+				picUrl = "",
+				picBase64Buf = base64,
+				fileMd5 = "",
 				atUser = 0
 		}
 	)
@@ -77,5 +84,12 @@ end
 function ReceiveEvents(CurrentQQ, data, extData)
     return 1
 end
-
-	
+function readImg(filePath)
+    local f, err = io.open(filePath, "rb")
+    if err ~= nil then
+        return nil, err
+    end
+    local content = f:read("*all")
+    f:close()
+    return content, err
+end
