@@ -34,7 +34,7 @@ if string.find(data.Content, "*") == 1 then
 		{
 				toUser = data.FromUin,
 				sendToType = 1,
-				sendMsgType = "PictMsg",
+				sendMsgType = "PicMsg",
 				groupid = 0,
 				content = "\n"..content,
 				picUrl = "",
