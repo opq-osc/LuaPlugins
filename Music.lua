@@ -6,6 +6,7 @@ local http = require("http")
 function ReceiveFriendMsg(CurrentQQ, data)
 		if string.find(data.Content, "点歌") == 1 then --判断一下所接收的消息里是否含有复读机字样 有则进行处理
         keyWord = data.Content:gsub("点歌", "") --提取关键词 保存到keyWord里
+				keyWord = keyWord:gsub(" ", "") --去除空格
 				log.notice("keyWord-->%s",keyWord)
 		if keyWord == "" then
 							return 1
@@ -96,6 +97,7 @@ end
 function ReceiveGroupMsg(CurrentQQ, data)
 		if string.find(data.Content, "听歌") == 1 then --判断一下所接收的消息里是否含有复读机字样 有则进行处理
         keyWord = data.Content:gsub("听歌", "") --提取关键词 保存到keyWord里
+				keyWord = keyWord:gsub(" ", "") --去除空格
 				log.notice("keyWord-->%s",keyWord)
 		if keyWord == "" then
 							return 1
@@ -183,6 +185,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 		
 		if string.find(data.Content, "点歌") == 1 then --判断一下所接收的消息里是否含有复读机字样 有则进行处理
 		      keyWord = data.Content:gsub("点歌", "") --提取关键词 保存到keyWord里
+					keyWord = keyWord:gsub(" ", "") --去除空格
 					log.notice("keyWord-->%s",keyWord)
 			if keyWord == "" then
 								return 1
