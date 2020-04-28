@@ -7,6 +7,10 @@ function ReceiveFriendMsg(CurrentQQ, data)
     return 1
 end
 function ReceiveGroupMsg(CurrentQQ, data)
+-- 屏蔽群
+if data.FromGroupId == 757360354 then
+		return 1
+	end
   		if string.find(data.MsgType, "PicMsg") then 
 				str = json.decode(data.Content)
 				log.notice("str.Content--->  %s", str.Content)
