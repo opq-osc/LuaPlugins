@@ -32,6 +32,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 			j.hitokoto,
 			j.from
 		)
+		log.notice("str--->%s", str)
 		Api.Api_SendMsg(--调用发消息的接口
 		    CurrentQQ,
 		    {
