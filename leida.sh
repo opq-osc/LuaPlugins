@@ -1,2 +1,2 @@
 #!/bin/bash
-curl "http://127.0.0.1/v1/LuaApiCaller?qq=664424604&funcname=SendMsg&timeout=10" -H 'Content-Type: application/json' -H 'Authorization: Basic cm9vdDpYaWFvXzAwb28=' -d '{"toUser":757360354,"sendToType":2,"sendMsgType":"TextMsg","content":"华东实时","groupid":0,"atUser":0}'
+curl "http://127.0.0.1/v1/LuaApiCaller?qq=664424604&funcname=SendMsg&timeout=10" -H 'Content-Type: application/json' -d '{"toUser":757360354,"sendToType":2,"sendMsgType":"TextMsg","content":"华东实时","groupid":0,"atUser":0}'
