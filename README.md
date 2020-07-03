@@ -1,5 +1,5 @@
 # LuaPlugins
-IOTQQ -- Lua插件 
+IOTQQ -- Lua插件  
 ``
 直接把lua文件放入Plugins文件夹下即可食用
 ``
