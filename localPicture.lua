@@ -9,9 +9,9 @@ end
 function ReceiveGroupMsg(CurrentQQ, data)
 if string.find(data.Content, "bz") == 1 then
 	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-	local randomNum = math.random(1,40)
+	local randomNum = math.random(1,90)
 	-- 图片路径
-	local path = "/root/img/mmbz/"..randomNum..".png"
+	local path = "/root/img/bz/"..randomNum..".jpg"
 	res = readImg(path)
 	base64 = PkgCodec.EncodeBase64(res)
 	 Api.Api_SendMsg(

@@ -53,6 +53,13 @@ function ReceiveGroupMsg(CurrentQQ, data)
 	if string.find(data.Content, "来点色图") == 1  then
 		Pixiv(CurrentQQ,data)
 		end
+	if string.find(data.MsgType, "PicMsg") then 
+		str = json.decode(data.Content)
+		FileMd5 = str.GroupPic[1].FileMd5
+		if FileMd5 == 'Huw1BQx8wggMOP7Ml5SrSQ==' then
+			Pixiv(CurrentQQ,data)
+		end
+	end
     return 1
 end
 
