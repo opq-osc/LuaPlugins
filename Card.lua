@@ -4,7 +4,7 @@ local json = require("json")
 local http = require("http")
 
 function ReceiveFriendMsg(CurrentQQ, data)
-if string.find(data.Content, "卡片") == 1 then --判断一下所接收的消息里是否含有复读机字样 有则进行处理
+if string.find(data.Content, "卡片测试") == 1 then --判断一下所接收的消息里是否含有复读机字样 有则进行处理
 log.notice("From Lua SendMsg Ret-->%d", data.Content)
 			luaRes =
 					Api.Api_SendMsg(
