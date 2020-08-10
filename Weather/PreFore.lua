@@ -8,7 +8,7 @@ function ReceiveFriendMsg(CurrentQQ, data)
     return 1
 end
 function ReceiveGroupMsg(CurrentQQ, data)
-    if string.find(data.Content, "降水量预报") == 1 then
+    if string.find(data.Content, "降水") == 1 then
         local time = os.time()
 		response, error_message =
 		    http.request(
