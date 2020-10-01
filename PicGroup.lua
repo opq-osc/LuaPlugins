@@ -7,7 +7,6 @@ function ReceiveFriendMsg(CurrentQQ, data)
 end
 
 function ReceiveGroupMsg(CurrentQQ, data)
-
 	if string.find(data.Content, "插画") == 1 then 
 		Illustration(CurrentQQ,data)
 		end
@@ -105,7 +104,7 @@ function Illustration(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -152,7 +151,7 @@ function Comic(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -198,7 +197,7 @@ function Draw(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -244,7 +243,7 @@ function Index(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -290,7 +289,7 @@ function Random(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -335,7 +334,7 @@ function RankComic(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -379,7 +378,7 @@ function Cosplay(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -425,7 +424,7 @@ function Sifu(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -469,7 +468,7 @@ function WeekRankCosplay(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -513,7 +512,7 @@ function MonthRankCosplay(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -557,7 +556,7 @@ function MonthRankSifu(CurrentQQ, data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -616,7 +615,7 @@ function menTu(CurrentQQ,data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -660,7 +659,7 @@ function menTu2(CurrentQQ,data)
 								groupid = 0, --不是私聊自然就为0咯
 								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 								sendMsgType = "PicMsg",
-								content = img_url,
+								content = "",
 								picUrl = img_url,
 								picBase64Buf = "",
 								fileMd5 = ""
@@ -708,7 +707,7 @@ function menTu2(CurrentQQ,data)
 									groupid = 0, --不是私聊自然就为0咯
 									atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 									sendMsgType = "PicMsg",
-									content = img_url,
+									content = "",
 									picUrl = img_url,
 									picBase64Buf = "",
 									fileMd5 = ""
@@ -725,17 +724,17 @@ function menTu2(CurrentQQ,data)
 							"GET",
 							"https://api.lolicon.app/setu",
 							{
-									query = "apikey=148642895e9691d6762c69"
+									query = "apikey=890360845f0bd89f905a70"
 							--     headers = {
 									-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
 									-- }
 							}
 					)			
 					local html = response.body
+					log.notice("the img_url is %s", html)
 					local strJson = json.decode(html)
 					local img_url = strJson["data"][1]["url"]
 					log.notice("the img_url is %s", img_url)
-					loading(CurrentQQ,data)
 					luaPic =
 							Api.Api_SendMsg(--调用发消息的接口
 							CurrentQQ,
@@ -745,7 +744,7 @@ function menTu2(CurrentQQ,data)
 										groupid = 0, --不是私聊自然就为0咯
 										atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
 										sendMsgType = "PicMsg",
-										content = img_url,
+										content = "",
 										picUrl = img_url,
 										picBase64Buf = "",
 										fileMd5 = ""
