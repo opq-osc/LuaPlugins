@@ -716,6 +716,9 @@ function menTu2(CurrentQQ,data)
 		    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
 		end
 	function Pixiv(CurrentQQ,data)
+		if data.FromUserId ~= CurrentQQ then 
+			return
+		end
 			response, error_message =
 							http.request(
 							"GET",
