@@ -31,7 +31,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 
 if string.find(data.Content, "菜单") == 1 then
 	menu =  "1.看图命令有：\n漫画、插画、随机、首页、周排行、cos、私服、cos周排行、cos月排行、私服排行、少前、来点色图（Loli）。\n"..
-					"2.QQ音乐：点歌+歌名歌手、VIP歌曲-->听歌+歌名歌手\n"..
+					"2.QQ音乐：点歌+歌名/歌手 (QQVIP歌曲)\n"..
 					"3.搜图+图片\n"..
 					"4.搜番+图片\n"..
 					"5.佛系语录\n"..
