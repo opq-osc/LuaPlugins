@@ -22,17 +22,20 @@ if string.find(data.Content, "渣男语录") == 1 then
     )
     local html = response.body
     local info = json.decode(html)
-        Api.Api_SendMsg(--调用发消息的接口
-        CurrentQQ,
-        {
-            toUser = data.FromGroupId, --回复当前消息的来源群ID
-            sendToType = 2, --2发送给群1发送给好友3私聊
-            sendMsgType = "TextMsg", --进行文本复读回复
-            groupid = 0, --不是私聊自然就为0咯
-            content = info[1].content, --回复内容
-            atUser = 0 --是否 填上data.FromUserId就可以复读给他并@了
-        }
-    )
+    local msg = info[1].content
+    log.notice("------ %s",msg)
+    luaMsg =
+            Api.Api_SendMsg(--调用发消息的接口
+            CurrentQQ,
+            {
+                toUser = data.FromGroupId, --回复当前消息的来源群ID
+                sendToType = 2, --2发送给群1发送给好友3私聊
+                sendMsgType = "TextMsg", --进行文本复读回复
+                groupid = 0, --不是私聊自然就为0咯
+                content = msg, --回复内容
+                atUser = 0 --是否 填上data.FromUserId就可以复读给他并@了
+            }
+        )
 		end
     return 1
 end

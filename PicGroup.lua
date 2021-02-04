@@ -48,8 +48,10 @@ function ReceiveGroupMsg(CurrentQQ, data)
 	end
 	if string.find(data.Content, "少前") == 1 then
 		girlFront(CurrentQQ,data)
+		Pixiv(CurrentQQ,data)
 		end
-	if string.find(data.Content, "来点色图") == 1  then
+	if string.find(data.Content, "来点瑟图") == 1  then
+		log.notice("=============>色图")
 		Pixiv(CurrentQQ,data)
 		end
 	if string.find(data.MsgType, "PicMsg") then 
@@ -74,10 +76,10 @@ function Illustration(CurrentQQ, data)
 			    "https://api.vc.bilibili.com/link_draw/v2/Doc/list",
 			    {
 			        query = "category=illustration&type=hot&page_size=20&page_num=" ..
-							number
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+							number,
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			-- local number = tonumber(num)
@@ -121,10 +123,10 @@ function Comic(CurrentQQ, data)
 			    "https://api.vc.bilibili.com/link_draw/v2/Doc/list",
 			    {
 			        query = "category=comic&type=hot&page_size=20&page_num=" ..
-							number
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+							number,
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			
@@ -168,10 +170,10 @@ function Draw(CurrentQQ, data)
 			    "https://api.vc.bilibili.com/link_draw/v2/Doc/list",
 			    {
 			        query = "category=draw&type=hot&page_size=20&page_num=" ..
-							number
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+							number,
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -214,10 +216,10 @@ function Index(CurrentQQ, data)
 			    "https://api.vc.bilibili.com/link_draw/v2/Doc/index",
 			    {
 			        query = "type=hot&page_size=20&page_num=" ..
-							number
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+							number,
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -260,10 +262,10 @@ function Random(CurrentQQ, data)
 			    "https://api.vc.bilibili.com/link_draw/v2/Doc/index",
 			    {
 			        query = "type=recommend&page_size=20&page_num=" ..
-							number
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+							number,
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -304,10 +306,10 @@ function RankComic(CurrentQQ, data)
 			    "GET",
 			    "https://api.vc.bilibili.com/link_draw/v2/Doc/rank",
 			    {
-			        query = "biz=1&rank_type=week&page_size=20"
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+			        query = "biz=1&rank_type=week&page_size=20",
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local number = tonumber(num)
@@ -351,10 +353,10 @@ function Cosplay(CurrentQQ, data)
 			    "https://api.vc.bilibili.com/link_draw/v2/Photo/list",
 			    {
 			        query = "category=cos&type=hot&page_size=20&page_num=" ..
-							number
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+							number,
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -395,10 +397,10 @@ function Sifu(CurrentQQ, data)
 			    "https://api.vc.bilibili.com/link_draw/v2/Photo/list",
 			    {
 			        query = "category=sifu&type=hot&page_size=20&page_num=" ..
-							number
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+							number,
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -439,10 +441,10 @@ function WeekRankCosplay(CurrentQQ, data)
 			    "GET",
 			    "https://api.vc.bilibili.com/link_draw/v2/Photo/rank",
 			    {
-			        query = "biz=2&category=cos&rank_type=week&page_size=20" 
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+			        query = "biz=2&category=cos&rank_type=week&page_size=20",
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -483,10 +485,10 @@ function MonthRankCosplay(CurrentQQ, data)
 			    "GET",
 			    "https://api.vc.bilibili.com/link_draw/v2/Photo/rank",
 			    {
-			        query = "biz=2&category=cos&rank_type=month&page_size=20" 
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+			        query = "biz=2&category=cos&rank_type=month&page_size=20" ,
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -527,10 +529,10 @@ function MonthRankSifu(CurrentQQ, data)
 			    "GET",
 			    "https://api.vc.bilibili.com/link_draw/v2/Photo/rank",
 			    {
-			        query = "biz=2&category=sifu&rank_type=month&page_size=20" 
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+			        query = "biz=2&category=sifu&rank_type=month&page_size=20",
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -586,14 +588,15 @@ function menTu(CurrentQQ,data)
 			    "GET",
 			    "https://api.vc.bilibili.com/link_draw/v1/doc/doc_list",
 			    {
-			        query = "uid=326544280&page_num=0&page_size=30&biz=all" 
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+			        query = "uid=326544280&page_num=0&page_size=30&biz=all",
+			        headers = {
+						Cookie = "l=v"
+				 	}
 			    }
 			)			
 			local html = response.body
 			local strJson = json.decode(html)
+			log.notice("strJson is %s", strJson.data)
 			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
 			randomINum = math.random(1,30)
 			log.notice("the randomINum is %s", randomINum)
@@ -630,10 +633,10 @@ function menTu2(CurrentQQ,data)
 			    "GET",
 			    "https://api.vc.bilibili.com/link_draw/v1/doc/doc_list",
 			    {
-			        query = "uid=813818&page_num=0&page_size=30&biz=all" 
-			    --     headers = {
-							-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- }
+			        query = "uid=813818&page_num=0&page_size=30&biz=draw",
+					headers = {
+						Cookie = "l=v"
+						}
 			    }
 			)			
 			local html = response.body
@@ -668,7 +671,7 @@ function menTu2(CurrentQQ,data)
 	    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
 	end
 	
-	function girlFront(CurrentQQ,data)
+function girlFront(CurrentQQ,data)
 	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
 	pageNum = math.random(1,5)
 	log.notice("pageNum is %s", pageNum)
@@ -678,10 +681,10 @@ function menTu2(CurrentQQ,data)
 				    "https://api.vc.bilibili.com/link_draw/v1/doc/doc_list",
 				    {
 				        query = "uid=407558584&page_size=30&biz=all&page_num=" ..
-												pageNum
-				    --     headers = {
-								-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-								-- }
+								pageNum,
+						headers = {
+							Cookie = "l=v"
+							}
 				    }
 				)			
 				local html = response.body
@@ -715,40 +718,41 @@ function menTu2(CurrentQQ,data)
 		    )
 		    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
 		end
-	function Pixiv(CurrentQQ,data)
-		if data.FromUserId ~= CurrentQQ then 
-			return
-		end
-			response, error_message =
-							http.request(
-							"GET",
-							"https://api.lolicon.app/setu",
+function Pixiv(CurrentQQ,data)
+	-- if data.FromUserId ~= CurrentQQ then 
+	-- 	return
+	-- end
+		response, error_message =
+						http.request(
+						"GET",
+						"https://api.lolicon.app/setu",
+						{
+							query = "apikey=890360845f0bd89f905a70",
+							-- headers = {
+							-- 		"User-Agent"="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
+							-- 	}
+						}
+				)			
+				local html = response.body
+				log.notice("the img_url is %s", html)
+				local strJson = json.decode(html)
+				local img_url = strJson["data"][1]["url"]
+				log.notice("the img_url is %s", img_url)
+				luaPic =
+						Api.Api_SendMsg(--调用发消息的接口
+						CurrentQQ,
 							{
-									query = "apikey=890360845f0bd89f905a70"
-							--     headers = {
-									-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-									-- }
+									toUser = data.FromGroupId, --回复当前消息的来源群ID
+									sendToType = 2, --2发送给群1发送给好友3私聊
+									groupid = 0, --不是私聊自然就为0咯
+									atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
+									sendMsgType = "PicMsg",
+									content = "",
+									picUrl = img_url,
+									picBase64Buf = "",
+									fileMd5 = ""
 							}
-					)			
-					local html = response.body
-					log.notice("the img_url is %s", html)
-					local strJson = json.decode(html)
-					local img_url = strJson["data"][1]["url"]
-					log.notice("the img_url is %s", img_url)
-					luaPic =
-							Api.Api_SendMsg(--调用发消息的接口
-							CurrentQQ,
-							 {
-										toUser = data.FromGroupId, --回复当前消息的来源群ID
-										sendToType = 2, --2发送给群1发送给好友3私聊
-										groupid = 0, --不是私聊自然就为0咯
-										atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
-										sendMsgType = "PicMsg",
-										content = "",
-										picUrl = img_url,
-										picBase64Buf = "",
-										fileMd5 = ""
-								}
-					)
-					log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
-		end
+				)
+				loading(CurrentQQ,data)
+				log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
+	end
