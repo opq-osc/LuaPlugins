@@ -728,13 +728,15 @@ function Pixiv(CurrentQQ,data)
 						"https://api.lolicon.app/setu",
 						{
 							query = "apikey=890360845f0bd89f905a70",
-							-- headers = {
-							-- 		"User-Agent"="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- 	}
-						}
+							 headers = {
+							 		["User-Agent"]="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
+								["Host"]="www.baidu.com"	
+							 	}
+			
+			}
 				)			
 				local html = response.body
-				log.notice("the img_url is %s", html)
+				log.notice("the html is %s", html)
 				local strJson = json.decode(html)
 				local img_url = strJson["data"][1]["url"]
 				log.notice("the img_url is %s", img_url)

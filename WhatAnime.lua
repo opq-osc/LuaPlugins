@@ -13,6 +13,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 					return 1
 				end
 				if string.find(str.Content, "搜番") then
+				log.notice("----> %s",str.GroupPic)
   				img_url = str.GroupPic[1].Url
           log.notice("MsgType--->   %s", data.MsgType)
   				log.notice("img_url--->   %s", img_url)
@@ -30,6 +31,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
              )
   				local html = response.body
   				local re = json.decode(html)
+				log.notice("re is --> %s",html)
 					-- 中文番名
   				local title_chinese = re.docs[1].title_chinese
 					-- 相似度
@@ -44,24 +46,25 @@ function ReceiveGroupMsg(CurrentQQ, data)
 					-- 剩余次数
 					local limit = re.limit
 					-- 获取番的详细信息
-					response2, error_message2 =
+					res, errmsg =
 					       http.request(
 					       "GET",
-									"https://trace.moe/info",
+									"https://api.trace.moe/info/" .. anilistID,
 					       {
-					           query = "anilist_id=" ..
-					               anilistID,
+					       --    query = "anilist_id=" ..
+					         --      anilistID,
 					           headers = {
 													["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
 					           }
 					       }
 					   )
-					local html2 = response2.body
+					local html2 = res.body
 					local info = json.decode(html2)
 					-- 封面
-					local coverImageUrl = info[1].coverImage.large
+					local bannerImage = info.bannerImage
+					local coverImageUrl = info.coverImage.large
 					-- 观看地址
-					local siteUrl = info[1].siteUrl
+					local siteUrl = info.siteUrl
           luaRes =
               Api.Api_SendMsg(--调用发消息的接口
               CurrentQQ,
@@ -70,7 +73,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
                   sendToType = 2, --2发送给群1发送给好友3私聊
                   sendMsgType = "PicMsg", --进行文本复读回复
   								content = string.format(
-  									"\n相似度：%s\n番名：%s\n集数：%d\n出现位置：大约%d分左右\n详细地址：%s\n剩余次数：%s",
+  									"\n相似度：%s\n番名：%s\n集数：%d\n出现位置：大约%d分左右\n详细信息:%s\n剩余次数：%s",
   									similarity,
   									title_chinese,
   									episode,
@@ -78,7 +81,8 @@ function ReceiveGroupMsg(CurrentQQ, data)
   									siteUrl,
 										limit
   								),
-  								picUrl = coverImageUrl,
+								picUrl = bannerImage,
+  								-- picUrl = coverImageUrl,
   								picBase64Buf = "",
   								fileMd5 = ""
               }

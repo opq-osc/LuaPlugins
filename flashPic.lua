@@ -13,10 +13,11 @@ function ReceiveGroupMsg(CurrentQQ, data)
 							"GET",
 							"https://api.lolicon.app/setu",
 							{
-									query = "apikey='你的APIKEY'&r18=1"
-							  --   headers = {
-									-- 	User-Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-									-- }
+									query = "apikey=890360845f0bd89f905a70&r18=1"
+									headers = {
+										["User-Agent"]="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
+								   ["Host"]="www.baidu.com"	
+									}
 							}
 					)			
 					local html = response.body
