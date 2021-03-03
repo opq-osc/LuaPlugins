@@ -25,6 +25,7 @@ if string.find(data.Content, "明日方舟") == 1 then
 				picUrl = "",
 				picBase64Buf = base64,
 				fileMd5 = "",
+				flashPic = true,
 				atUser = 0
 		}
 	)

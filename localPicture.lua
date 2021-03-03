@@ -8,11 +8,10 @@ function ReceiveFriendMsg(CurrentQQ, data)
 end
 function ReceiveGroupMsg(CurrentQQ, data)
 if string.find(data.Content, "bz") == 1 then
-	-- math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-	math.randomseed(data.MsgRandom)
-	local randomNum = math.random(1,90)
+	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
+	local randomNum = math.random(1,40)
 	-- 图片路径
-	local path = "/root/img/bz/"..randomNum..".jpg"
+	local path = "/root/img/mmbz/"..randomNum..".png"
 	res = readImg(path)
 	base64 = PkgCodec.EncodeBase64(res)
 	 Api.Api_SendMsg(

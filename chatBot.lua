@@ -4,8 +4,9 @@ local json = require("json")
 local http = require("http")
 
 function ReceiveFriendMsg(CurrentQQ, data)
-if string.find(data.Content, "*") == 1 then
+if string.find(data.Content, "$") == 1 then
 	keyWord = data.Content:gsub("*", "")
+	log.notice("keyWord --> %s",keyWord)
 	if keyWord == nil then
 		return 1
 	end
@@ -22,6 +23,7 @@ if string.find(data.Content, "*") == 1 then
 	       }
 	   )
 	local html = response.body
+	log.notice("html --> %s",html)
 	local msg = json.decode(html)
 	local content = msg.content:gsub("{br}","\n")
 	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
@@ -48,15 +50,16 @@ if string.find(data.Content, "*") == 1 then
     return 1
 end
 function ReceiveGroupMsg(CurrentQQ, data)
-if string.find(data.Content, "*") == 1 then
-	keyWord = data.Content:gsub("*", "")
+if string.find(data.Content, "#") == 1 then
+	keyWord = data.Content:gsub("#", "")
+	log.notice("keyWord --> %s",keyWord)
 	if keyWord == nil then
 		return 1
 	end
 	response, error_message =
 	       http.request(
 	       "GET",
-					"http://api.qingyunke.com/api.php?",
+					"http://api.qingyunke.com/api.php",
 	       {
 	           query = "key=free&appid=0&msg=" ..
 	               keyWord,
@@ -66,6 +69,7 @@ if string.find(data.Content, "*") == 1 then
 	       }
 	   )
 	local html = response.body
+	log.notice("html --> %s",tostring(response))
 	local msg = json.decode(html)
 	local content = msg.content:gsub("{br}","\n")
 	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))

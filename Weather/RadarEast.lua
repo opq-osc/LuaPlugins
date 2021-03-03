@@ -25,6 +25,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 		)
 		local html = response.body
         local j = json.decode(html)
+	log.notice("json is %s",j)
         local img_url = j.data.radar.image
 		local prefix = "http://image.nmc.cn"
 		Api.Api_SendMsg(--调用发消息的接口

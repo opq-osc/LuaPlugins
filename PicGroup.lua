@@ -50,14 +50,26 @@ function ReceiveGroupMsg(CurrentQQ, data)
 		girlFront(CurrentQQ,data)
 		Pixiv(CurrentQQ,data)
 		end
-	if string.find(data.Content, "来点瑟图") == 1  then
-		log.notice("=============>色图")
+	if string.find(data.Content, "收藏") == 1  then
+		for i=1,3,1 do
 		Pixiv(CurrentQQ,data)
+		end
 		end
 	if string.find(data.MsgType, "PicMsg") then 
 		str = json.decode(data.Content)
 		FileMd5 = str.GroupPic[1].FileMd5
-		if FileMd5 == 'Huw1BQx8wggMOP7Ml5SrSQ==' then
+if FileMd5 == 'pRxceaTnu2Xw1ORFzuZ6SA==' then
+                   for i=1,5,1 do
+                Pixiv(CurrentQQ,data)
+                end
+                end
+if FileMd5 == 'qsFn6mdxIG3T32Kyh0ZKeg==' then
+			Pixiv(CurrentQQ,data)
+		end
+if FileMd5 == 'QoOtD2OwFcB5mEfoTXn36A==' then
+                        Pixiv(CurrentQQ,data)
+		end
+		if FileMd5 == 'dHxyac8V301uxk4iyxEzfQ==' then
 			Pixiv(CurrentQQ,data)
 		end
 	end
@@ -719,6 +731,54 @@ function girlFront(CurrentQQ,data)
 		    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
 		end
 function Pixiv(CurrentQQ,data)
+	math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
+	pageNum = math.random(0,3)
+	log.notice("pageNum is %s", pageNum)
+		response, error_message =
+					http.request(
+					"GET",
+					"https://api.vc.bilibili.com/link_draw/v1/doc/doc_list",
+					{
+						query = "uid=53271910&page_size=30&biz=draw&page_num=" ..
+								pageNum,
+						headers = {
+							Cookie = "l=v"
+							}
+					}
+				)			
+				local html = response.body
+				local strJson = json.decode(html)
+				math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
+				randomINum = math.random(1,30)
+				log.notice("the randomINum is %s", randomINum)
+				local Plength = table.getn(strJson["data"]["items"][randomINum]["pictures"])
+				log.notice("the pictures_length is %s", Plength)
+				math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
+				randomPNum = math.random(1,Plength)
+				log.notice("the randomPNum is %s", randomPNum)
+				local img_url = strJson["data"]["items"][randomINum]["pictures"][randomPNum]["img_src"]
+				log.notice("the img_url is %s", img_url)
+		
+				--loading(CurrentQQ,data)
+			luaPic =
+				Api.Api_SendMsg(--调用发消息的接口
+				CurrentQQ,
+					{
+									toUser = data.FromGroupId, --回复当前消息的来源群ID
+									sendToType = 2, --2发送给群1发送给好友3私聊
+									groupid = 0, --不是私聊自然就为0咯
+									atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
+									sendMsgType = "PicMsg",
+									content = "",
+									picUrl = img_url,
+									picBase64Buf = "",
+									fileMd5 = ""
+							}
+			)
+			log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
+		end
+
+function Pixiv_o(CurrentQQ,data)
 	-- if data.FromUserId ~= CurrentQQ then 
 	-- 	return
 	-- end
@@ -728,13 +788,15 @@ function Pixiv(CurrentQQ,data)
 						"https://api.lolicon.app/setu",
 						{
 							query = "apikey=890360845f0bd89f905a70",
-							-- headers = {
-							-- 		"User-Agent"="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
-							-- 	}
-						}
+							 headers = {
+							 		["User-Agent"]="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
+								["Host"]="www.baidu.com"	
+							 	}
+			
+			}
 				)			
 				local html = response.body
-				log.notice("the img_url is %s", html)
+				log.notice("the html is %s", html)
 				local strJson = json.decode(html)
 				local img_url = strJson["data"][1]["url"]
 				log.notice("the img_url is %s", img_url)
@@ -756,3 +818,4 @@ function Pixiv(CurrentQQ,data)
 				loading(CurrentQQ,data)
 				log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
 	end
+
