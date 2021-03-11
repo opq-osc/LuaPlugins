@@ -51,7 +51,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 		Pixiv(CurrentQQ,data)
 		end
 	if string.find(data.Content, "收藏") == 1  then
-		for i=1,3,1 do
+		for i=1,5,1 do
 		Pixiv(CurrentQQ,data)
 		end
 		end
