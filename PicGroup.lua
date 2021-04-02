@@ -58,7 +58,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 	if string.find(data.MsgType, "PicMsg") then 
 		str = json.decode(data.Content)
 		FileMd5 = str.GroupPic[1].FileMd5
-if FileMd5 == 'pRxceaTnu2Xw1ORFzuZ6SA==' then
+if FileMd5 == 'pRxceaTnu2Xw1ORFzuZ6SA==' or FileMd5 == '6uw/nFjjp8Dj6gZojum3jA==' then
                    for i=1,5,1 do
                 Pixiv(CurrentQQ,data)
                 end

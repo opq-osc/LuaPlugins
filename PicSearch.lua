@@ -33,10 +33,10 @@ function ReceiveGroupMsg(CurrentQQ, data)
   				local html = response.body
   			--	log.notice("html-->%s",html)
   				local re = json.decode(html)
-				table2string(re.results[1].header)
+				table2string(re.results[1].data.ext_urls[1])
   				log.notice("re---> %s", re.results)
   				local similarity = re.results[1].header.similarity
-				if tonumber(similarity) < 80 then
+				if tonumber(similarity) < 20 then
 					faildSearch(CurrentQQ,data)
 				end	
   				local thumbnail_url = re.results[1].header.thumbnail
@@ -45,7 +45,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
   				local member_name = re.results[1].data.member_name
   				local ext_urls = re.results[1].data.ext_urls[1]
 
-if tonumber(similarity) >= 80 then
+if tonumber(similarity) >= 30 then
 	log.notice("re---> %s", thumbnail_url)
 	loadingG(CurrentQQ,data)
           luaRes =
