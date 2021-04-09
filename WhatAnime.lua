@@ -18,53 +18,37 @@ function ReceiveGroupMsg(CurrentQQ, data)
           log.notice("MsgType--->   %s", data.MsgType)
   				log.notice("img_url--->   %s", img_url)
           response, error_message =
-                 http.request(
+			http.request(
                  "GET",
-          				"https://trace.moe/api/search",
+          				"https://api.trace.moe/search",
                  {
-                     query = "url=" ..
+                     query = "info=advanced&cutBorders=1&url=" ..
                          img_url,
                      headers = {
-          								["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          					["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
                      }
                  }
              )
   				local html = response.body
   				local re = json.decode(html)
-				log.notice("re is --> %s",html)
+				-- log.notice("re is --> %s",html)
 					-- 中文番名
-  				local title_chinese = re.docs[1].title_chinese
+  				local title_chinese = re.result[1].anilist.synonyms_chinese[1]
+				local title = re.result[1].anilist.title.native
 					-- 相似度
-  				local similarity = re.docs[1].similarity
+  				local similarity = re.result[1].similarity
 					-- 集数
-  				local episode = re.docs[1].episode
+  				local episode = re.result[1].episode
 					-- 位置 秒
-  				local position = re.docs[1].at
-					position = math.floor((math.floor(position))/60)
-					-- 动漫ID
-					local anilistID =re.docs[1].anilist_id
-					-- 剩余次数
-					local limit = re.limit
-					-- 获取番的详细信息
-					res, errmsg =
-					       http.request(
-					       "GET",
-									"https://api.trace.moe/info/" .. anilistID,
-					       {
-					       --    query = "anilist_id=" ..
-					         --      anilistID,
-					           headers = {
-													["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
-					           }
-					       }
-					   )
-					local html2 = res.body
-					local info = json.decode(html2)
-					-- 封面
-					local bannerImage = info.bannerImage
-					local coverImageUrl = info.coverImage.large
-					-- 观看地址
-					local siteUrl = info.siteUrl
+  				local position = re.result[1].from
+				position = math.floor((math.floor(position))/60)
+				-- 封面
+				-- local bannerImage = re.result[1].anilist.bannerImage
+				local coverImageUrl = re.result[1].anilist.coverImage.large
+				-- 观看地址
+				local siteUrl = re.result[1].anilist.siteUrl
+				-- 官网
+				local officalSite = re.result[1].anilist.externalLinks[1].url
           luaRes =
               Api.Api_SendMsg(--调用发消息的接口
               CurrentQQ,
@@ -73,16 +57,17 @@ function ReceiveGroupMsg(CurrentQQ, data)
                   sendToType = 2, --2发送给群1发送给好友3私聊
                   sendMsgType = "PicMsg", --进行文本复读回复
   								content = string.format(
-  									"\n相似度：%s\n番名：%s\n集数：%d\n出现位置：大约%d分左右\n详细信息:%s\n剩余次数：%s",
+  									"\n相似度：%s\n番名：%s\n原名：%s\n集数：%d\n出现位置：大约%d分左右\n详细信息:%s\n官网：%s",
   									similarity,
   									title_chinese,
+									title,
   									episode,
   									position,
   									siteUrl,
-										limit
+									officalSite
   								),
-								picUrl = bannerImage,
-  								-- picUrl = coverImageUrl,
+								-- picUrl = bannerImage,
+  								picUrl = coverImageUrl,
   								picBase64Buf = "",
   								fileMd5 = ""
               }
