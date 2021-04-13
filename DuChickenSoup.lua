@@ -13,7 +13,7 @@ if string.find(data.Content, "毒鸡汤") == 1 then
     response, error_message =
         http.request(
         "GET",
-        "https://chp.shadiao.app/api.php",
+        "https://nmsl.shadiao.app/api.php?level=min&lang=zh_cn",
         {
             headers = {
                 Accept = "*/*"
