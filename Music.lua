@@ -10,16 +10,17 @@ function ReceiveGroupMsg(CurrentQQ, data)
         keyWord = keyWord:gsub(" ", "") -- 去除空格
         log.notice("听歌keyWord-->%s", keyWord)
         if keyWord == "" then return 1 end
-        response, error_message = http.request("GET",
-                                               "https://c.y.qq.com/soso/fcgi-bin/client_search_cp",
-                                               {
-            query = "ct=24&qqmusic_ver=1298&new_json=1&remoteplace=txt.yqq.song&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=1&n=20&w=" ..
-                keyWord,
+        local url =
+            "https://c.y.qq.com/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=txt.yqq.song&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=1&n=20&w=" ..
+                keyWord
+        log.notice("url-->%s", url)
+        response, error_message = http.request("GET", url, {
             headers = {Accept = "*/*"}
         })
         local html = response.body
+		-- log.notice("html-->%s", html)
         local str = html:match("callback%((.+)%)")
-        -- log.notice("str-->%s",str)
+        -- log.notice("str-->%s", str)
         local j = json.decode(str)
         local songID = ""
         local songname = ""
@@ -30,14 +31,16 @@ function ReceiveGroupMsg(CurrentQQ, data)
             songname = j.data.song.list[1].name
             pic_url = j.data.song.list[1].album.pmid
             singer = j.data.song.list[1].singer[1].name
+            log.notice("songID-->%s", songID)
+            log.notice("songname-->%s", songname)
         end
         local jumpUrl = "https://y.qq.com/n/yqq/song/" .. songID .. ".html"
         pic_url = "http://y.gtimg.cn/music/photo_new/T002R300x300M000" ..
                       pic_url .. ".jpg?max_age=2592000"
         if songID ~= "" then
             response, error_message =
-                http.request( -- https://api.zsfmyz.top/music/song?songmid=004Z8Ihr0JIu5s&guid=126548448
-                "GET", "https://api.zsfmyz.top/music/song", {
+                http.request( -- https://node-music-api.vercel.app/music/song?songmid=004Z8Ihr0JIu5s&guid=126548448
+                "GET", "https://node-music-api.vercel.app/music/song", {
                     query = "guid=126548448&songmid=" .. songID,
                     headers = {
                         ["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -47,10 +50,14 @@ function ReceiveGroupMsg(CurrentQQ, data)
                     }
                 })
             local Json2 = response.body
-            log.notice("Json2-->%s", Json2)
+            -- log.notice("Json2-->%s", Json2)
             local song = json.decode(Json2)
             local song_url = song.data.musicUrl
-            log.notice("song_url-->%s", song_url)
+            log.notice("songname>%s", songname)
+            log.notice("jumpUrl>%s", jumpUrl)
+            log.notice("pic_url>%s", pic_url)
+            log.notice("song_url>%s", song_url)
+            log.notice("singer>%s", singer)
             luaPic = Api.Api_SendMsg( -- 调用发消息的接口
             CurrentQQ, {
                 toUser = data.FromGroupId,
@@ -80,9 +87,9 @@ function ReceiveGroupMsg(CurrentQQ, data)
             headers = {Accept = "*/*"}
         })
         local html = response.body
-		log.notice("html-->%s", html)
+		-- log.notice("html-->%s", html)
         local str = html:match("callback%((.+)%)")
-        log.notice("str-->%s", str)
+        -- log.notice("str-->%s", str)
         local j = json.decode(str)
         local songID = ""
         local songname = ""
@@ -101,8 +108,8 @@ function ReceiveGroupMsg(CurrentQQ, data)
                       pic_url .. ".jpg?max_age=2592000"
         if songID ~= "" then
             response, error_message =
-                http.request( -- https://api.zsfmyz.top/music/song?songmid=004Z8Ihr0JIu5s&guid=126548448
-                "GET", "http://127.0.0.1:8001/music/song", {
+                http.request( -- https://node-music-api.vercel.app/music/song?songmid=004Z8Ihr0JIu5s&guid=126548448
+                "GET", "https://node-music-api.vercel.app/music/song", {
                     query = "guid=126548448&songmid=" .. songID,
                     headers = {
                         ["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -124,8 +131,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
 
             local content = string.format(
                                 "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><msg serviceID=\"2\" templateID=\"1\" action=\"web\" brief=\"[分享] %s\" sourceMsgId=\"0\" url=\"%s\" flag=\"0\" adverSign=\"0\" multiMsgFlag=\"0\"><item layout=\"2\"><audio cover=\"%s\" src=\"%s\" /><title>%s</title><summary>%s</summary></item><source name=\"QQ音乐\" icon=\"https://i.gtimg.cn/open/app_icon/01/07/98/56/1101079856_100_m.png?date=20200503\" url=\"http://web.p.qq.com/qqmpmobile/aio/app.html?id=1101079856\" action=\"app\" a_actionData=\"com.tencent.qqmusic\" i_actionData=\"tencent1101079856://\" appid=\"1101079856\" /></msg>",
-                                songname, jumpUrl, pic_url, song_url, songname,
-                                singer)
+                                songname, jumpUrl, pic_url, song_url, songname, singer)
             content = string.gsub(content, "&", "&amp;")
             log.notice("content->%s", content)
 
