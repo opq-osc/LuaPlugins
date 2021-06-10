@@ -23,7 +23,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
                  "GET",
           				"https://saucenao.com/search.php",
                  {
-                     query = "api_key=f6fe1a86a6e1ef87926c013aa4a99ad58273d636&db=999&output_type=2&testmode=1&numres=16&url=" ..
+                     query = "api_key=自己去申请key&db=999&output_type=2&testmode=1&numres=16&url=" ..
                          img_url,
                      headers = {
           								["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
@@ -33,17 +33,22 @@ function ReceiveGroupMsg(CurrentQQ, data)
   				local html = response.body
   			--	log.notice("html-->%s",html)
   				local re = json.decode(html)
-				table2string(re.results[1].data.ext_urls[1])
+				local num = 1
+				if re.results[num].data.ext_urls == nil then
+					num = 2
+				end
+				-- table2string(re.results[1].data.ext_urls[1])
   				log.notice("re---> %s", re.results)
-  				local similarity = re.results[1].header.similarity
+  				local similarity = re.results[num].header.similarity
 				if tonumber(similarity) < 20 then
 					faildSearch(CurrentQQ,data)
+					return 1
 				end	
-  				local thumbnail_url = re.results[1].header.thumbnail
-  				local title = re.results[1].data.title
-  				local pixiv_id = re.results[1].data.pixiv_id
-  				local member_name = re.results[1].data.member_name
-  				local ext_urls = re.results[1].data.ext_urls[1]
+  				local thumbnail_url = re.results[num].header.thumbnail
+  				local title = re.results[num].data.title
+  				local pixiv_id = re.results[num].data.pixiv_id
+  				local member_name = re.results[num].data.member_name
+  				local ext_urls = re.results[num].data.ext_urls[1]
 
 if tonumber(similarity) >= 30 then
 	log.notice("re---> %s", thumbnail_url)
