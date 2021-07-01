@@ -7,9 +7,8 @@ function ReceiveFriendMsg(CurrentQQ, data)
     return 1
 end
 function ReceiveGroupMsg(CurrentQQ, data)
-	if string.find(data.Content, "天气菜单") == 1 then
-        local msg = "天气菜单：\n"..
-        "24小时降水量预报===>降水\n"..
+	if string.find(data.Content, "*天气菜单*") == 1 then
+        local msg = "24小时降水量预报===>降水\n"..
         "24小时最高气温预报===>气温\n"..
         "全国雷达拼图===>全国雷达拼图\n"..
         "华东雷达图===>华东\n"..
