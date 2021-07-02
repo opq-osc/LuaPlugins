@@ -13,9 +13,9 @@ function ReceiveGroupMsg(CurrentQQ, data)
             log.notice("MsgType--->   %s", data.MsgType)
             log.notice("img_url--->   %s", img_url)
             response, error_message = http.request("GET",
-                                                   "https://trace.moe/api/search",
+                                                   "https://api.trace.moe/search",
                                                    {
-                query = "url=" .. img_url,
+                query = "anilistInfo&url=" .. img_url,
                 headers = {
                     ["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
                 }
@@ -23,22 +23,23 @@ function ReceiveGroupMsg(CurrentQQ, data)
             local html = response.body
             local re = json.decode(html)
 			-- 原名
-			local title = re.docs[1].title
+			local title = re.result[1].anilist.title.native
+            log.notice("title--->   %s", title)
             -- 中文番名
-            local title_chinese = re.docs[1].synonyms_chinese[1]
+            local title_chinese = re.result[1].anilist.synonyms[1]
 			log.notice("title_chinese--->   %s", title_chinese)
             -- 相似度
-            local similarity = re.docs[1].similarity
+            local similarity = re.result[1].similarity
 			log.notice("similarity--->   %s", similarity)
             -- 集数
-            local episode = re.docs[1].episode
+            local episode = re.result[1].episode
 			log.notice("episode--->   %d", episode)
             -- 位置 秒
-            local position = re.docs[1].at
+            local position = re.result[1].from
             position = math.floor((math.floor(position)) / 60)
 			log.notice("position--->   %d", position)
             -- 动漫ID
-            local anilistID = re.docs[1].anilist_id
+            local anilistID = re.result[1].anilist.id
             -- 剩余次数
             -- local limit = re.limit
             -- 获取番的详细信息
