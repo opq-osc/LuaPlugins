@@ -22,33 +22,22 @@ function ReceiveGroupMsg(CurrentQQ, data)
 	if string.find(data.Content, "随机") == 1 then
 		Random(CurrentQQ,data)
 		end
-	if string.find(data.Content, "周排行") == 1 then
-		RankComic(CurrentQQ,data)
-		end
 	if string.find(data.Content, "cos") then 
 		Cosplay(CurrentQQ,data)
 		end
 	if string.find(data.Content, "私服") == 1 then
 		Sifu(CurrentQQ,data)
 		end
-	if string.find(data.Content, "cos周排行") == 1 then
-		WeekRankCosplay(CurrentQQ,data)
-		end
-	if string.find(data.Content, "cos月排行") == 1 then
-		MonthRankCosplay(CurrentQQ,data)
-		end
-	if string.find(data.Content, "私服排行") == 1 then
-		MonthRankSifu(CurrentQQ,data)
-		end
 	keyWord = string.gsub(data.Content, "群图片", "sb")
 	if string.match(data.Content, keyWord) == "图" then
 		
-	menTu(CurrentQQ,data)
-	menTu2(CurrentQQ,data)
+	-- menTu(CurrentQQ,data)
+	for i=1,5,1 do
+		zuxingjian(CurrentQQ,data)
+		end
 	end
 	if string.find(data.Content, "少前") == 1 then
 		girlFront(CurrentQQ,data)
-		Pixiv(CurrentQQ,data)
 		end
 	if string.find(data.Content, "收藏") == 1  then
 		for i=1,5,1 do
@@ -81,7 +70,7 @@ function ReceiveEvents(CurrentQQ, data, extData)
 end
 
 function Illustration(CurrentQQ, data) 
-			number = math.random(1,24)
+			number = math.random(1,13)
 			response, error_message =
 			    http.request(
 			    "GET",
@@ -130,7 +119,7 @@ function Illustration(CurrentQQ, data)
 	end
 	
 function Comic(CurrentQQ, data) 
-			number = math.random(1,24)
+			number = math.random(0,1)
 			response, error_message =
 			    http.request(
 			    "GET",
@@ -179,7 +168,7 @@ function Comic(CurrentQQ, data)
 	end
 	
 function Draw(CurrentQQ, data) 
-			number = math.random(1,24)
+			number = math.random(1,5)
 			response, error_message =
 			    http.request(
 			    "GET",
@@ -370,7 +359,7 @@ function RankComic(CurrentQQ, data)
 	end
 	
 function Cosplay(CurrentQQ, data) 
-			number = math.random(1,24)
+			number = math.random(0,4)
 			response, error_message =
 			    http.request(
 			    "GET",
@@ -415,191 +404,6 @@ function Cosplay(CurrentQQ, data)
 	    -- log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
 	end
 	
-function Sifu(CurrentQQ, data) 
-			number = math.random(1,24)
-			response, error_message =
-			    http.request(
-			    "GET",
-			    "https://api.vc.bilibili.com/link_draw/v2/Photo/list",
-			    {
-			        query = "category=sifu&type=hot&page_size=20&page_num=" ..
-							number,
-					headers = {
-						Cookie = "l=v"
-						}
-			    }
-			)			
-			local html = response.body
-			local strJson = json.decode(html)
-			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-			local items = table.getn(strJson["data"]["items"])
-			log.notice("item length-->%s",items)
-			randomINum = math.random(1,20)
-			log.notice("the randomINum is %s", randomINum)
-			local Plength = table.getn(strJson["data"]["items"][1]["item"]["pictures"])
-			log.notice("the pictures_length is %s", Plength)
-			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-			randomPNum = math.random(1,Plength)
-			log.notice("the randomPNum is %s", randomPNum)
-			local img_url = strJson["data"]["items"][randomINum]["item"]["pictures"][randomPNum]["img_src"]
-			log.notice("the img_url is %s", img_url)
-	
-			loading(CurrentQQ,data)
-	    luaPic =
-	        Api.Api_SendMsg(--调用发消息的接口
-	        CurrentQQ,
-	         {
-								toUser = data.FromGroupId, --回复当前消息的来源群ID
-								sendToType = 2, --2发送给群1发送给好友3私聊
-								groupid = 0, --不是私聊自然就为0咯
-								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
-								sendMsgType = "PicMsg",
-								content = "",
-								picUrl = img_url,
-								picBase64Buf = "",
-								fileMd5 = ""
-						}
-	    )
-	    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
-	end
-	--Cosplay周排行
-function WeekRankCosplay(CurrentQQ, data) 
-			response, error_message =
-			    http.request(
-			    "GET",
-			    "https://api.vc.bilibili.com/link_draw/v2/Photo/rank",
-			    {
-			        query = "biz=2&category=cos&rank_type=week&page_size=20",
-					headers = {
-						Cookie = "l=v"
-						}
-			    }
-			)			
-			local html = response.body
-			local strJson = json.decode(html)
-			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-			local items = table.getn(strJson["data"]["items"])
-			log.notice("item length-->%s",items)
-			randomINum = math.random(1,20)
-			log.notice("the randomINum is %s", randomINum)
-			local Plength = table.getn(strJson["data"]["items"][1]["item"]["pictures"])
-			log.notice("the pictures_length is %s", Plength)
-			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-			randomPNum = math.random(1,Plength)
-			log.notice("the randomPNum is %s", randomPNum)
-			local img_url = strJson["data"]["items"][randomINum]["item"]["pictures"][randomPNum]["img_src"]
-			log.notice("the img_url is %s", img_url)
-	
-			loading(CurrentQQ,data)
-	    luaPic =
-	        Api.Api_SendMsg(--调用发消息的接口
-	        CurrentQQ,
-	         {
-								toUser = data.FromGroupId, --回复当前消息的来源群ID
-								sendToType = 2, --2发送给群1发送给好友3私聊
-								groupid = 0, --不是私聊自然就为0咯
-								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
-								sendMsgType = "PicMsg",
-								content = "",
-								picUrl = img_url,
-								picBase64Buf = "",
-								fileMd5 = ""
-						}
-	    )
-	    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
-	end
-	--Cosplay月排行
-function MonthRankCosplay(CurrentQQ, data) 
-			response, error_message =
-			    http.request(
-			    "GET",
-			    "https://api.vc.bilibili.com/link_draw/v2/Photo/rank",
-			    {
-			        query = "biz=2&category=cos&rank_type=month&page_size=20" ,
-					headers = {
-						Cookie = "l=v"
-						}
-			    }
-			)			
-			local html = response.body
-			local strJson = json.decode(html)
-			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-			local items = table.getn(strJson["data"]["items"])
-			log.notice("item length-->%s",items)
-			randomINum = math.random(1,20)
-			log.notice("the randomINum is %s", randomINum)
-			local Plength = table.getn(strJson["data"]["items"][1]["item"]["pictures"])
-			log.notice("the pictures_length is %s", Plength)
-			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-			randomPNum = math.random(1,Plength)
-			log.notice("the randomPNum is %s", randomPNum)
-			local img_url = strJson["data"]["items"][randomINum]["item"]["pictures"][randomPNum]["img_src"]
-			log.notice("the img_url is %s", img_url)
-	
-			loading(CurrentQQ,data)
-	    luaPic =
-	        Api.Api_SendMsg(--调用发消息的接口
-	        CurrentQQ,
-	         {
-								toUser = data.FromGroupId, --回复当前消息的来源群ID
-								sendToType = 2, --2发送给群1发送给好友3私聊
-								groupid = 0, --不是私聊自然就为0咯
-								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
-								sendMsgType = "PicMsg",
-								content = "",
-								picUrl = img_url,
-								picBase64Buf = "",
-								fileMd5 = ""
-						}
-	    )
-	    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
-	end
-	--私服月排行
-function MonthRankSifu(CurrentQQ, data) 
-			response, error_message =
-			    http.request(
-			    "GET",
-			    "https://api.vc.bilibili.com/link_draw/v2/Photo/rank",
-			    {
-			        query = "biz=2&category=sifu&rank_type=month&page_size=20",
-					headers = {
-						Cookie = "l=v"
-						}
-			    }
-			)			
-			local html = response.body
-			local strJson = json.decode(html)
-			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-			local items = table.getn(strJson["data"]["items"])
-			log.notice("item length-->%s",items)
-			randomINum = math.random(1,20)
-			log.notice("the randomINum is %s", randomINum)
-			local Plength = table.getn(strJson["data"]["items"][1]["item"]["pictures"])
-			log.notice("the pictures_length is %s", Plength)
-			math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
-			randomPNum = math.random(1,Plength)
-			log.notice("the randomPNum is %s", randomPNum)
-			local img_url = strJson["data"]["items"][randomINum]["item"]["pictures"][randomPNum]["img_src"]
-			log.notice("the img_url is %s", img_url)
-	
-			loading(CurrentQQ,data)
-	    luaPic =
-	        Api.Api_SendMsg(--调用发消息的接口
-	        CurrentQQ,
-	         {
-								toUser = data.FromGroupId, --回复当前消息的来源群ID
-								sendToType = 2, --2发送给群1发送给好友3私聊
-								groupid = 0, --不是私聊自然就为0咯
-								atUser = 0, --是否 填上data.FromUserId就可以复读给他并@了
-								sendMsgType = "PicMsg",
-								content = "",
-								picUrl = img_url,
-								picBase64Buf = "",
-								fileMd5 = ""
-						}
-	    )
-	    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
-	end
 
 function loading(CurrentQQ,data)
 		luaMsg =
@@ -663,13 +467,15 @@ function menTu(CurrentQQ,data)
 	    log.notice("From Lua SendMsg Ret-->%d", luaPic.Ret)
 	end
 	
-function menTu2(CurrentQQ,data)
+function zuxingjian(CurrentQQ,data)
+	pageNum = math.random(0,30)
+	log.notice("pageNum-->%s",pageNum)
 	response, error_message =
 			    http.request(
 			    "GET",
 			    "https://api.vc.bilibili.com/link_draw/v1/doc/doc_list",
 			    {
-			        query = "uid=813818&page_num=0&page_size=30&biz=draw",
+			        query = "uid=14453048&page_size=30&biz=all&page_num=" .. pageNum,
 					headers = {
 						Cookie = "l=v"
 						}
