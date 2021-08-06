@@ -95,7 +95,7 @@ function ReceiveGroupMsg(CurrentQQ, data)
     end
     if string.find(data.Content, "wwww") == 1 then
         local content = string.format(
-                            "<?xmlversion='1.0'encoding='UTF-8'standalone='yes'?><msgserviceID=\"83\"templateID=\"12345\"action=\"web\"brief=\"OPQ器人\"sourceMsgId=\"0\"url=\"https://post.mp.qq.com/group/article/33303433373836353238-35707230.html\"flag=\"0\"adverSign=\"0\"multiMsgFlag=\"0\"><itemlayout=\"2\"advertiser_id=\"0\"aid=\"0\"><picturecover=\"http://gchat.qpic.cn/gchatpic_new/0/0-0-9581D3315877C5E757C8FEC6C04D701F/0\"w=\"0\"h=\"0\"/><title>开机成功</title><summary>发送\"菜单\"使用</summary></item><sourcename=\"OPQ科技\"icon=\"https://ctc.qzs.qq.com/ac/qzone_v5/client/auth_icon.png\"action=\"web\"appid=\"0\"/></msg>")
+                            "<?xml version='1.0'encoding='UTF-8'standalone='yes'?><msgserviceID=\"83\"templateID=\"12345\"action=\"web\"brief=\"OPQ器人\"sourceMsgId=\"0\"url=\"https://post.mp.qq.com/group/article/33303433373836353238-35707230.html\"flag=\"0\"adverSign=\"0\"multiMsgFlag=\"0\"><itemlayout=\"2\"advertiser_id=\"0\"aid=\"0\"><picturecover=\"http://gchat.qpic.cn/gchatpic_new/0/0-0-9581D3315877C5E757C8FEC6C04D701F/0\"w=\"0\"h=\"0\"/><title>开机成功</title><summary>发送\"菜单\"使用</summary></item><sourcename=\"OPQ科技\"icon=\"https://ctc.qzs.qq.com/ac/qzone_v5/client/auth_icon.png\"action=\"web\"appid=\"0\"/></msg>")
         content = string.gsub(content, "&", "&amp;")
 		log.notice("content-->%s", content)
         luaRes = Api.Api_SendMsg(CurrentQQ, {
@@ -107,6 +107,17 @@ function ReceiveGroupMsg(CurrentQQ, data)
 			atUser = 0
         })
         log.notice("From Lua SendMsg Ret-->%d", luaRes.Ret)
+    end
+    if string.find(data.Content, "az") == 1 then
+        Api.Api_SendMsg(CurrentQQ, {
+            toUser = data.FromGroupId,
+            sendToType = 2,
+            sendMsgType = "JsonMsg",
+            groupid = 0,
+            content = string.format(
+                [[{"app":"com.tencent.qqvip_game_video","desc":"","view":"gameVideoSingle","ver":"0.0.0.1","prompt":"[应用]","appID":"","sourceName":"","actionData":"","actionData_A":"","sourceUrl":"","meta":{"gameVideoSingle":{"DATA11":"","DATA12":"","DATA7":"http:\/\/ptlogin2.qq.com\/ho_cross_domain?tourl=https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4","DATA13":"0","DATA10":"","DATA14":"videotest1"}},"config":{"type":"normal","width":-2200,"height":-3000,"forward":1},"text":"","sourceAd":"","extra":""}]]),
+            atUser = 0
+        })
     end
     return 1
 end
