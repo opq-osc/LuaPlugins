@@ -13,7 +13,7 @@ if string.find(data.Content, "渣男语录") == 1 then
     response, error_message =
         http.request(
         "GET",
-        "https://api.lovelive.tools/api/SweetNothings/WebSite/1",
+        "https://api.lovelive.tools/api/SweetNothings/Web/1",
         {
             headers = {
                 Accept = "*/*"
@@ -22,7 +22,7 @@ if string.find(data.Content, "渣男语录") == 1 then
     )
     local html = response.body
     local info = json.decode(html)
-    local msg = info[1].content
+    local msg = info.returnObj.content
     log.notice("------ %s",msg)
     luaMsg =
             Api.Api_SendMsg(--调用发消息的接口
